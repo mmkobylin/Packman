@@ -17,11 +17,16 @@
     box-sizing: border-box;
 }
 
-.wall {
-    background-color: blue;
+.pac-man {
+    background-color: yellow;
+    border-radius: 10px;
 }
 
 .power-pellet {
     background-color: #7fff00;
     border-radius: 10px;
+}
+
+.wall {
+    background-color: blue;
 }
