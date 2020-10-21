@@ -172,6 +172,30 @@ function powerPelletEaten(){
         squares[ghost.currentIndex].classList.add('ghost')
 
     })
+    //move ghosts at random 
     ghosts.forEach(ghost => moveGhost(ghost))
+
+    function moveGhost(ghost) {
+        const directions = [1, -1, width, -width]
+
+        let direction = directions[Math.floor(Math.random() * directions.length)]
+
+        ghost.timerId = setInterval(function() {
+            if (!squares[ghost.currentIndex + direction].classList.contains('wall') 
+            && !squares[ghost.currentIndex + direction].classList.contains('ghost')) {
+                //ghost can move here
+                //remove all ghost classes
+                squares[ghost.currentIndex].classList.remove('ghost', 'scared-ghost', ghost.className)
+                //change the current index: 
+                ghost.currentIndex += direction
+                //redraw the ghost: 
+                squares[ghost.currentIndex].classList.add('ghost', ghost.className)
+
+            }
+        else direction = directions[Math.floor(Math.random() * directions.length)]
+        }, ghost.speed)
+    }
+
+
 }
 );
