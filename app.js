@@ -150,10 +150,10 @@ function powerPelletEaten(){
     class Ghost {
 
         constructor(className, startIndex, speed) {
-            this.className = className;
-            this.startIndex = startIndex;
-            this.speed = speed;
-            this.currentIndex = startIndex;
+            this.className = className
+            this.startIndex = startIndex
+            this.speed = speed
+            this.currentIndex = startIndex
             this.timerId = NaN
         }
     } 
@@ -162,8 +162,16 @@ function powerPelletEaten(){
         new Ghost('blinky', 348, 250),
         new Ghost('pinky', 376, 400),
         new Ghost('inky', 351, 300),
-        new Ghost('clyde', 379, 500),
+        new Ghost('clyde', 379, 500)
     ]
+    //drawing a ghost
 
+    ghosts.forEach(ghost => {
+        squares[ghost.currentIndex].classList.add(ghost.className)
+
+        squares[ghost.currentIndex].classList.add('ghost')
+
+    })
+    ghosts.forEach(ghost => moveGhost(ghost))
 }
 );
