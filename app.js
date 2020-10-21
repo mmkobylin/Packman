@@ -67,4 +67,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 createBoard()
-});
+
+let pacmanIndex = 490; 
+
+squares[pacmanIndex].classList.add('pac-man')
+
+        // //arrow legend: 
+        // left arrow	37
+        // up arrow	38
+        // right arrow	39
+        // down arrow	40
+
+//this is where you move the packman using arrows-triggered event
+function movePacman(e) {
+    switch(e.keyCode) {
+        case 37: 
+            if (pacmanIndex % width !== 0) pacmanIndex -=1;
+            break 
+        case 38: 
+            if (pacmanIndex - width >= 0) pacmanIndex -=width;
+            break
+        case 39: 
+            if (pacmanIndex % width < width-1) pacmanIndex +=1;
+            break 
+        case 40: 
+            if (pacmanIndex + width < width * width) packmanIndex += width
+            break
+        }
+
+        squares[pacmanIndex].classList.add('pac-man')
+
+        //pacDotEaten()
+        //powerPelletEaten()
+        //checkForGameOver
+        //checkFor win
+
+    }
+
+document.addEventListener('keyup', movePacman)
+}
+);
