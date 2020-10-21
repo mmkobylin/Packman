@@ -231,7 +231,7 @@ function unScareGhosts() {
         if (score === 274 ) {
             ghosts.forEach(ghost => clearInterval(ghost.timerId))
             document.removeEventListener('keyup', movePacman)
-            scoreDisplay.innerHTML = 'VICTORY'
+            scoreDisplay.innerHTML = 'VICTORY!'
             }
         }
     }
