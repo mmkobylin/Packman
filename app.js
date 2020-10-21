@@ -123,7 +123,7 @@ function movePacman(e) {
         pacDotEaten()
         powerPelletEaten()
         checkForGameOver()
-        //checkFor win
+        checkForWin()
 
     }
 
@@ -227,5 +227,12 @@ function unScareGhosts() {
         }
     }
 
-}
+    function checkForWin() {
+        if (score === 274 ) {
+            ghosts.forEach(ghost => clearInterval(ghost.timerId))
+            document.removeEventListener('keyup', movePacman)
+            scoreDisplay.innerHTML = 'VICTORY'
+            }
+        }
+    }
 );
