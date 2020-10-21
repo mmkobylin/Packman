@@ -1,3 +1,18 @@
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
+1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
+1,3,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,3,1,
+1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
+1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
+1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
+1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
+1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,
+1,1,1,1,1,1,0,1,1,4,4,4,4,4,4,4,4,4,4,1,1,0,1,1,1,1,1,1,
+1,1,1,1,1,1,0,1,1,4,1,1,1,2,2,1,1,1,4,1,1,0,1,1,1,1,1,1,
+1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
+4,4,4,4,4,4,0,0,0,4,1,2,2,2,2,2,2,1,4,0,0,0,4,4,4,4,4,4,
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const grid = document.querySelector('.grid')
@@ -60,10 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 squares[i].classList.add('pac-dot')
             } else if (layout[i] === 1) {
             squares[i].classList.add('wall')
+            } else if (layout[i] === 2) {
+            squares[i].classList.add('ghost-lair')
             } else if (layout[i] === 3) {
             squares[i].classList.add('power-pellet')
-            } else if (layout[i] === 2)
-            squares[i].classList.add('ghost-lair')
+            }                
         }
     }
 
@@ -85,9 +101,16 @@ function movePacman(e) {
     switch(e.keyCode) {
         case 37: 
             if (pacmanIndex % width !== 0 && !squares[pacmanIndex -1].classList.contains('wall')
-            && !squares[pacmanIndex -1].classList.contains('ghostlair')) 
-            pacmanIndex -=1;
+            && !squares[pacmanIndex -1].classList.contains('ghost-lair')) 
+            pacmanIndex -=1
+
+            //checking for 'portal' 
+
+            if (pacmanIndex - 1 === 363 )
+            pacmanIndex = 391;
+
             break 
+
         case 38: 
             if (pacmanIndex - width >= 0 && !squares[pacmanIndex - width].classList.contains('wall')
             && !squares[pacmanIndex - width].classList.contains('ghost-lair')) 
@@ -96,7 +119,10 @@ function movePacman(e) {
         case 39: 
             if (pacmanIndex % width < width-1 && !squares[pacmanIndex+1].classList.contains('wall')
             && !squares[pacmanIndex+1].classList.contains('ghost-lair')) 
-            pacmanIndex +=1;
+            pacmanIndex +=1
+
+            if (pacmanIndex +1 === 391) 
+            pacmanIndex = 364;
             break 
         case 40: 
         if (pacmanIndex + width < width * width && !squares[pacmanIndex + width].classList.contains('wall')
