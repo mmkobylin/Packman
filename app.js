@@ -140,9 +140,14 @@ function pacDotEaten(){
 function powerPelletEaten(){
     if (squares[pacmanIndex].classList.contains('power-pellet')){
         score+=10
-        scoreDisplay.innerHTML = score
+        ghosts.forEach(ghost => ghost.isScared = true)
+        setTimeout(unScareGhosts, 10000)
         squares[pacmanIndex].classList.remove('power-pellet')
     }
+}
+
+function unScareGhosts() {
+    ghosts.forEach(ghost => ghost.isScared = false)
 }
 
 
@@ -155,6 +160,7 @@ function powerPelletEaten(){
             this.speed = speed
             this.currentIndex = startIndex
             this.timerId = NaN
+            this.isScared = false
         }
     } 
 
@@ -193,7 +199,12 @@ function powerPelletEaten(){
 
             }
         else direction = directions[Math.floor(Math.random() * directions.length)]
-        }, ghost.speed)
+            
+        if (ghost.isScared) {
+            squares[ghost.currentIndex].classList.add('scared-ghost')
+        }
+    
+    }, ghost.speed)
     }
 
 
