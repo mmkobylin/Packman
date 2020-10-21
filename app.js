@@ -203,7 +203,14 @@ function unScareGhosts() {
         if (ghost.isScared) {
             squares[ghost.currentIndex].classList.add('scared-ghost')
         }
-    
+
+        if (ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
+            squares[ghost.currentIndex].classList.remove(ghost.className, 'scared-ghost', 'ghost')
+            ghost.currentIndex = ghost.startIndex            
+            score +=100
+            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+        }
+
     }, ghost.speed)
     }
 
