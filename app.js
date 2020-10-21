@@ -122,7 +122,7 @@ function movePacman(e) {
 
         pacDotEaten()
         powerPelletEaten()
-        //checkForGameOver
+        checkForGameOver()
         //checkFor win
 
     }
@@ -211,9 +211,21 @@ function unScareGhosts() {
             squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
         }
 
+        checkForGameOver()
+
     }, ghost.speed)
     }
-
+    //check for gameover
+    function checkForGameOver() {
+        if (squares[pacmanIndex].classList.contains('ghost') 
+        && !squares[pacmanIndex].classList.contains('scared-ghost')) {
+            ghosts.forEach(ghost => clearInterval(ghost.timerId))
+            document.removeEventListener('keyup', movePacman)
+            setTimeout(function(){alter('GAME OVER')
+        }, 500)
+            scoreDisplay.innerHTML = 'GAME OVER'
+        }
+    }
 
 }
 );
