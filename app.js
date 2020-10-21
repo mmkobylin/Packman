@@ -62,7 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
             squares[i].classList.add('wall')
             } else if (layout[i] === 3) {
             squares[i].classList.add('power-pellet')
-            }
+            } else if (layout[i] === 2)
+            squares[i].classList.add('ghost-lair')
         }
     }
 
@@ -80,21 +81,26 @@ squares[pacmanIndex].classList.add('pac-man')
 
 //this is where you move the packman using arrows-triggered event
 function movePacman(e) {
+    squares[pacmanIndex].classList.remove('pac-man')
     switch(e.keyCode) {
         case 37: 
-            if (pacmanIndex % width !== 0 && !squares[pacmanIndex -1].classList.contains('wall')) 
+            if (pacmanIndex % width !== 0 && !squares[pacmanIndex -1].classList.contains('wall')
+            && !squares[pacmanIndex -1].classList.contains('ghostlair')) 
             pacmanIndex -=1;
             break 
         case 38: 
-            if (pacmanIndex - width >= 0 && !squares[pacmanIndex - width].classList.contains('wall')) 
+            if (pacmanIndex - width >= 0 && !squares[pacmanIndex - width].classList.contains('wall')
+            && !squares[pacmanIndex - width].classList.contains('ghost-lair')) 
             pacmanIndex -=width;
             break
         case 39: 
-            if (pacmanIndex % width < width-1 && !squares[pacmanIndex+1].classList.contains('wall')) 
+            if (pacmanIndex % width < width-1 && !squares[pacmanIndex+1].classList.contains('wall')
+            && !squares[pacmanIndex+1].classList.contains('ghost-lair')) 
             pacmanIndex +=1;
             break 
         case 40: 
-        if (pacmanIndex + width < width * width && !squares[pacmanIndex + width].classList.contains('wall')) 
+        if (pacmanIndex + width < width * width && !squares[pacmanIndex + width].classList.contains('wall')
+            && !squares[pacmanIndex + width].classList.contains('ghost-lair')) 
             pacmanIndex +=width;
             break
         }
