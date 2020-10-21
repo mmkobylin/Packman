@@ -84,7 +84,7 @@ squares[pacmanIndex].classList.add('pac-man')
 
 //this is where you move the packman using arrows-triggered event
 function movePacman(e) {
-    squares[pacmanIndex].classList.remove('pac-man', 'power-pellet')
+    squares[pacmanIndex].classList.remove('pac-man')
     switch(e.keyCode) {
         case 37: 
             if (pacmanIndex % width !== 0 && !squares[pacmanIndex -1].classList.contains('wall')
@@ -121,7 +121,7 @@ function movePacman(e) {
         squares[pacmanIndex].classList.add('pac-man')
 
         pacDotEaten()
-        //powerPelletEaten()
+        powerPelletEaten()
         //checkForGameOver
         //checkFor win
 
@@ -131,11 +131,19 @@ document.addEventListener('keyup', movePacman)
 
 function pacDotEaten(){
     if (squares[pacmanIndex].classList.contains('pac-dot')){
-        score++
+        score+=1
         scoreDisplay.innerHTML = score
         squares[pacmanIndex].classList.remove('pac-dot')
         }
     }
+function powerPelletEaten(){
+    if (squares[pacmanIndex].classList.contains('power-pellet')){
+        score+=10
+        scoreDisplay.innerHTML = score
+        squares[pacmanIndex].classList.remove('power-pellet')
+        }
+    }
+
 
 }
 );
