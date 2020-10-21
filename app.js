@@ -82,16 +82,20 @@ squares[pacmanIndex].classList.add('pac-man')
 function movePacman(e) {
     switch(e.keyCode) {
         case 37: 
-            if (pacmanIndex % width !== 0 && !squares[pacmanIndex -1].classList.contains('wall')) pacmanIndex -=1;
+            if (pacmanIndex % width !== 0 && !squares[pacmanIndex -1].classList.contains('wall')) 
+            pacmanIndex -=1;
             break 
         case 38: 
-            if (pacmanIndex - width >= 0) pacmanIndex -=width;
+            if (pacmanIndex - width >= 0 && !squares[pacmanIndex - width].classList.contains('wall')) 
+            pacmanIndex -=width;
             break
         case 39: 
-            if (pacmanIndex % width < width-1 && !squares[pacmanIndex+1].classList.contains('wall')) pacmanIndex +=1;
+            if (pacmanIndex % width < width-1 && !squares[pacmanIndex+1].classList.contains('wall')) 
+            pacmanIndex +=1;
             break 
         case 40: 
-            if (pacmanIndex + width < width * width) packmanIndex += width
+        if (pacmanIndex + width < width * width && !squares[pacmanIndex + width].classList.contains('wall')) 
+            pacmanIndex +=width;
             break
         }
 
