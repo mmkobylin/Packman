@@ -24,23 +24,23 @@ document.addEventListener('DOMContentLoaded', () => {
         1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
         1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
         1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
-        1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
-        1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
+        1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,1,1,1,1,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,
         1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,
         1,1,1,1,1,1,0,1,1,4,4,4,4,4,4,4,4,4,4,1,1,0,1,1,1,1,1,1,
         1,1,1,1,1,1,0,1,1,4,1,1,1,2,2,1,1,1,4,1,1,0,1,1,1,1,1,1,
         1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
         4,4,4,4,4,4,0,0,0,4,1,2,2,2,2,2,2,1,4,0,0,0,4,4,4,4,4,4,
         1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
-        1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
-        1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
+        1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,0,0,0,0,1,1,
+        1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,0,1,1,
         1,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,1,
         1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
         1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
         1,3,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,3,1,
-        1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,
-        1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,
-        1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1,
+        1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,
+        1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,
+        1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
         1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,
         1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,
         1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -181,6 +181,12 @@ function unScareGhosts() {
     //move ghosts at random 
     ghosts.forEach(ghost => moveGhost(ghost))
 
+    //get coordinates for pacman
+    function getCoordinates (index) {
+        return (index % width, Math.floor(index))
+    }
+
+
     function moveGhost(ghost) {
         const directions = [1, -1, width, -width]
 
@@ -198,23 +204,27 @@ function unScareGhosts() {
                 squares[ghost.currentIndex].classList.add('ghost', ghost.className)
 
             }
-        else direction = directions[Math.floor(Math.random() * directions.length)]
-            
-        if (ghost.isScared) {
-            squares[ghost.currentIndex].classList.add('scared-ghost')
-        }
 
-        if (ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
-            squares[ghost.currentIndex].classList.remove(ghost.className, 'scared-ghost', 'ghost')
-            ghost.currentIndex = ghost.startIndex            
-            score +=100
-            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
-        }
+            else direction = directions[Math.floor(Math.random() * directions.length)]
+                
+            if (ghost.isScared) {
+                squares[ghost.currentIndex].classList.add('scared-ghost')
+            }
+
+            if (ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
+                squares[ghost.currentIndex].classList.remove(ghost.className, 'scared-ghost', 'ghost')
+                ghost.currentIndex = ghost.startIndex            
+                score +=100
+                squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+            }
+
+            //
 
         checkForGameOver()
 
     }, ghost.speed)
     }
+
     //check for gameover
     function checkForGameOver() {
         if (squares[pacmanIndex].classList.contains('ghost') 
