@@ -4,13 +4,14 @@ body {
     font-family: 'Orbitron', sans-serif;
     text-align: center;
 }
+
 .grid {
-    border:solid;
+    border: double 2rem gray;
     display: flex;
     flex-wrap: wrap; 
     position: absolute;
     top: 15%;
-    left: 34.5%;
+    left: 33%;
     height: 560px;
     width: 560px;
 }
