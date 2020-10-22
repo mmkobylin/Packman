@@ -29,13 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
         1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
         1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
         1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
-        1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,1,1,1,1,0,1,
-        1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,
+        1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,
+        1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
         1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,
         1,1,1,1,1,1,0,1,1,4,4,4,4,4,4,4,4,4,4,1,1,0,1,1,1,1,1,1,
         1,1,1,1,1,1,0,1,1,4,1,1,1,2,2,1,1,1,4,1,1,0,1,1,1,1,1,1,
         1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
-        4,4,4,4,4,4,0,0,0,4,1,2,2,2,2,2,2,1,4,0,0,0,4,4,4,4,4,4,
+        4,4,4,4,4,4,0,0,0,4,4,2,2,2,2,2,2,4,4,0,0,0,4,4,4,4,4,4,
         1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
         1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,0,0,0,0,1,1,
         1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,0,1,1,
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     //declaring ghosts in an array
     ghosts = [
-        // new Ghost('blinky', 348, 250),
+        new Ghost('blinky', 348, 250),
         new Ghost('pinky', 376, 400),
         new Ghost('inky', 351, 300),
         new Ghost('clyde', 379, 500)
@@ -203,65 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //move ghosts at random 
     ghosts.forEach(ghost => moveGhost(ghost))
 
-    // moveBlinky(blinky)
-    //get coordinates for pacman
-    function getCoordinates (index) {
-        return (index % width, Math.floor(index))
-    }
-
-    console.log(getCoordinates(blinkyCurentIndex))
-
-    function moveBlinky() {
-        //direction options
-        const directions = [1, -1, width, -width]
-
-        //randomising
-        let direction = directions[Math.floor(Math.random() * directions.length)]
-
-        let blinklytimerId = NaN
-
-        //checking if one can go there
-        blinklytimerId = setInterval(function() {
-            if (!squares[blinkyCurentIndex + direction].classList.contains('wall') 
-            && !squares[blinkyCurentIndex + direction].classList.contains('ghost')) {
-                //ghost can move here
-                //remove all ghost classes
-                squares[blinkyCurentIndex].classList.remove('blinky')
-
-                //change the current index: 
-                const [blinkyX, blinkyY] = getCoordinates(blinkyCurentIndex)
-                const [pacmanX, pacmanY] = getCoordinates(pacmanIndex)
-
-                const [blinkyNewX, blinkyNewY] = getCoordinates(blinkyCurentIndex + direction)
-
-                function isXCloser() {
-                    if ((blinkyNewX - pacmanX) > (blinkyX - pacmanX)) {
-                        return true
-                    } else return false
-                }
-
-                function isYCloser() {
-                    if ((blinkyNewY - pacmanY) > (blinkyY - pacmanY)) {
-                        return true
-                    } else return false
-                }
-
-                if (isYCloser() || isXCloser()) {
-
-                    blinkyCurentIndex += direction
-                    //redraw the ghost: 
-                    squares[blinkyCurentIndex].classList.add('blinky')
-                } else { direction = directions[Math.floor(Math.random() * directions.length)]
-            }
-            squares[blinkyCurentIndex].classList.add('blinky')
-            } else direction = directions[Math.floor(Math.random() * directions.length)]
-        }, 250)
-    }
-
-    
-    //moving blinky
-
-    moveBlinky()
     //moving ghosts
     function moveGhost(ghost) {
         //direction options
