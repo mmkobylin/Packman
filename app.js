@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     //creating initial pacman placement
     let pacmanIndex = 490; 
-
     squares[pacmanIndex].classList.add('pac-man')
+
 
         // //arrow legend: 
         // left arrow	37
@@ -177,11 +177,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     //declaring ghosts in an array
     ghosts = [
-        new Ghost('blinky', 348, 250),
+        // new Ghost('blinky', 348, 250),
         new Ghost('pinky', 376, 400),
         new Ghost('inky', 351, 300),
         new Ghost('clyde', 379, 500)
     ]
+
+    let blinkyCurentIndex = 348 
+    squares[blinkyCurentIndex].classList.add('blinky')
+
+    //  get coordinates 
+    function getCoordinates(index) {
+        return [index % width, Math.floor(index / width)]
+      }
+   
 
     //drawing a ghost
     ghosts.forEach(ghost => {
@@ -194,11 +203,65 @@ document.addEventListener('DOMContentLoaded', () => {
     //move ghosts at random 
     ghosts.forEach(ghost => moveGhost(ghost))
 
+    // moveBlinky(blinky)
     //get coordinates for pacman
     function getCoordinates (index) {
         return (index % width, Math.floor(index))
     }
 
+    console.log(getCoordinates(blinkyCurentIndex))
+
+    function moveBlinky() {
+        //direction options
+        const directions = [1, -1, width, -width]
+
+        //randomising
+        let direction = directions[Math.floor(Math.random() * directions.length)]
+
+        let blinklytimerId = NaN
+
+        //checking if one can go there
+        blinklytimerId = setInterval(function() {
+            if (!squares[blinkyCurentIndex + direction].classList.contains('wall') 
+            && !squares[blinkyCurentIndex + direction].classList.contains('ghost')) {
+                //ghost can move here
+                //remove all ghost classes
+                squares[blinkyCurentIndex].classList.remove('blinky')
+
+                //change the current index: 
+                const [blinkyX, blinkyY] = getCoordinates(blinkyCurentIndex)
+                const [pacmanX, pacmanY] = getCoordinates(pacmanIndex)
+
+                const [blinkyNewX, blinkyNewY] = getCoordinates(blinkyCurentIndex + direction)
+
+                function isXCloser() {
+                    if ((blinkyNewX - pacmanX) > (blinkyX - pacmanX)) {
+                        return true
+                    } else return false
+                }
+
+                function isYCloser() {
+                    if ((blinkyNewY - pacmanY) > (blinkyY - pacmanY)) {
+                        return true
+                    } else return false
+                }
+
+                if (isYCloser() || isXCloser()) {
+
+                    blinkyCurentIndex += direction
+                    //redraw the ghost: 
+                    squares[blinkyCurentIndex].classList.add('blinky')
+                } else { direction = directions[Math.floor(Math.random() * directions.length)]
+            }
+            squares[blinkyCurentIndex].classList.add('blinky')
+            } else direction = directions[Math.floor(Math.random() * directions.length)]
+        }, 250)
+    }
+
+    
+    //moving blinky
+
+    moveBlinky()
     //moving ghosts
     function moveGhost(ghost) {
         //direction options
@@ -210,7 +273,8 @@ document.addEventListener('DOMContentLoaded', () => {
         //checking if one can go there
         ghost.timerId = setInterval(function() {
             if (!squares[ghost.currentIndex + direction].classList.contains('wall') 
-            && !squares[ghost.currentIndex + direction].classList.contains('ghost')) {
+            && !squares[ghost.currentIndex + direction].classList.contains('ghost')
+            && !squares[ghost.currentIndex + direction].classList.contains('blinky')) {
                 //ghost can move here
                 //remove all ghost classes
                 squares[ghost.currentIndex].classList.remove('ghost', 'scared-ghost', ghost.className)
@@ -254,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkForWin() {
-        if (score === 284) {
+        if (score > 284) {
             ghosts.forEach(ghost => clearInterval(ghost.timerId))
             document.removeEventListener('keyup', movePacman)
             scoreDisplay.innerHTML = 'VICTORY!'
