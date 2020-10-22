@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    //selecting the div by the class
     const grid = document.querySelector('.grid')
 
+    //
     const scoreDisplay = document.getElementById('score');
 
     const width = 28 // 28 x 28 = 784 squares
 
-    let score = 0;
+    let score = 0
 
     //layout legend: 
 
