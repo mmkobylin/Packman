@@ -267,4 +267,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    //if one is playing on a mobile, the keys appear. this is a logic for the keys
 );
