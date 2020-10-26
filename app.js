@@ -183,15 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
         new Ghost('clyde', 379, 150)
     ]
 
-    let blinkyCurentIndex = 348 
-    squares[blinkyCurentIndex].classList.add('blinky')
-
-    //  get coordinates 
-    function getCoordinates(index) {
-        return [index % width, Math.floor(index / width)]
-      }
-   
-
     //drawing a ghost
     ghosts.forEach(ghost => {
         squares[ghost.currentIndex].classList.add(ghost.className)
@@ -266,7 +257,68 @@ document.addEventListener('DOMContentLoaded', () => {
             
             }
         }
-    }
 
-    //if one is playing on a mobile, the keys appear. this is a logic for the keys
+        //if one is playing on a mobile, the keys appear. this is a logic for the keys
+
+        let buttonUp = document.getElementById('data-up')
+        let buttonDown = document.querySelector('[data-down]')
+        let buttonLeft = document.querySelector('[data-left]')
+        let buttonRight = document.querySelector('[data-right]')
+
+        buttonLeft.addEventListener('click', () => {
+            //if pac-man is not going to go into a wall, let it go
+            if (!squares[pacmanIndex - 1].classList.contains('wall')){
+            squares[pacmanIndex].classList.remove("pac-man");
+
+            pacmanIndex -=1;
+            squares[pacmanIndex].classList.remove("pac-dot", "power-pellet");
+
+
+            squares[pacmanIndex].classList.add("pac-man");
+
+            console.log(pacmanIndex)
+            }
+        })
+
+
+
+        buttonUp.addEventListener('click', () => {
+            //if pac-man is not going to go into a wall, let it go
+            if (!squares[pacmanIndex - width].classList.contains('wall')){
+            squares[pacmanIndex].classList.remove("pac-man");
+
+            pacmanIndex -=width;
+            squares[pacmanIndex].classList.remove("pac-dot", "power-pellet");
+
+            squares[pacmanIndex].classList.add("pac-man");
+
+            console.log(pacmanIndex)
+            }
+        })
+        buttonDown.addEventListener('click', () => {
+            if (!squares[pacmanIndex + width].classList.contains('wall')){
+
+            squares[pacmanIndex].classList.remove("pac-man");
+
+            pacmanIndex +=width;
+            squares[pacmanIndex].classList.remove("pac-dot", "power-pellet");
+
+            squares[pacmanIndex].classList.add("pac-man");
+
+            console.log(pacmanIndex)
+            }
+        })
+
+        buttonRight.addEventListener('click', () => {
+            if(!squares[pacmanIndex +1].classList.contains('wall')){
+                squares[pacmanIndex].classList.remove('pac-man')
+
+                pacmanIndex +=1;
+                squares[pacmanIndex].classList.remove("pac-dot", "power-pellet");
+                squares[pacmanIndex].classList.add('pac-man')
+
+                console.log(pacmanIndex);
+            }
+        })
+    }
 );
