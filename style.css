@@ -71,6 +71,15 @@ body {
 
 @media screen and (max-width:700px) {
     .button-controls {
-        display: inline;
+        display: inline-block;
+        margin-bottom: 3rem;
+    }
+
+    .grid {
+        border: double 1rem gray;
+        padding:0;
+        position: relative;
+        margin-right:10px;
+
     }
 }
